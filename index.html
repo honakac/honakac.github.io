@@ -5,29 +5,100 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-        <link href="style.css" rel="stylesheet">
+        <style>
+            body {
+                margin: 0;
+                font-family: 'Nunito', sans-serif;
+                background: linear-gradient(120deg, #141e30, #243b55);
+                color: #fff;
+                text-align: center;
+            }
+
+            .container {
+                margin: 50px auto;
+                text-align: center;
+            }
+
+            img {
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+                transition: transform 0.3s, box-shadow 0.3s;
+            }
+
+            img:hover {
+                transform: scale(1.05);
+                box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+            }
+
+            .infobox {
+                margin-top: 20px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+                font-weight: 800;
+                margin: 10px 0;
+            }
+
+            h4 {
+                font-size: 1.2rem;
+                font-weight: 300;
+                color: #b2b2b2;
+                margin: 10px 0;
+            }
+
+            a {
+                margin: 10px;
+                display: inline-block;
+                transition: transform 0.3s;
+            }
+
+            a:hover {
+                transform: scale(1.1);
+            }
+
+            a img {
+                border-radius: 50%;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            h3 {
+                margin-top: 30px;
+                color: #f4f4f4;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                font-size: 1.5rem;
+            }
+
+            .github-card img {
+                border-radius: 15px;
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            }
+
+            .github-card {
+                margin: 20px auto;
+                width: 80%;
+                max-width: 600px;
+                text-align: center;
+            }
+        </style>
     </head>
     <body>
         <div class="container">
             <img width="200" height="200" style="border-radius: 15%;" src="https://avatars.githubusercontent.com/u/115927225"/>
             <div class="infobox">
-                <h1 class="nunito-font">HonakAC</h1>
-                <h4 class="nunito-font">My name is Andrei. I am a programmer in C/C++.</h4>
+                <h1>HonakAC</h1>
+                <h4>My name is Andrei. I am a programmer in C/C++.</h4>
             </div>
         </div>
-        <div align="center">
-            <br/>
+        <div class="github-card">
             <img src="http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=honakac&theme=2077">
+        </div>
+        <div>
+            <h3>Links:</h3>
+            <a href="https://github.com/honakac"><img width="48" height="48" src="github.png" alt="GitHub"></a>
+            <a href="https://honakac.itch.io"><img width="48" height="48" src="itchio.webp" alt="Itch.io"></a>
             <br/>
-            <br/>
-
-            <h3 class="nunito-font">Links:</h3>
-            <a href="https://github.com/honakac"><img width="48" height="48" src="github.png"></a>
-            <a href="https://honakac.itch.io"><img width="48" height="48" src="itchio.webp"></a>
-
-            <br/>
-
-            <a href="https://www.codewars.com/users/HonakAC"><img src="https://www.codewars.com/users/HonakAC/badges/small"></a>
+            <a href="https://www.codewars.com/users/HonakAC"><img src="https://www.codewars.com/users/HonakAC/badges/small" alt="CodeWars"></a>
         </div>
     </body>
 </html>
