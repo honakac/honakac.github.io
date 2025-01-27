@@ -6,6 +6,9 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
         <style>
+            :root {
+                --rotation-speed: 10s;
+            }
             body {
                 margin: 0;
                 font-family: 'Nunito', sans-serif;
@@ -16,6 +19,31 @@
                 text-align: center;
             }
 
+            .speed-control {
+                position: fixed;
+                top: 10px;
+                right: 10px;
+                background: rgba(255, 255, 255, 0.1);
+                padding: 10px;
+                border-radius: 5px;
+                z-index: 1000;
+            }
+
+            .speed-control label {
+                display: block;
+                margin-bottom: 5px;
+                color: #fff;
+            }
+
+            .speed-control input[type="range"] {
+                width: 100%;
+            }
+
+            .speed-control #speed-value {
+                display: inline-block;
+                margin-top: 5px;
+                color: #fff;
+            }
             .friends {
                 margin: 40px auto;
                 width: 80%;
@@ -48,7 +76,7 @@
                 height: 100px;
                 border-radius: 50%;
                 margin-bottom: 10px;
-                animation: float 3s ease-in-out infinite, spin 10s linear infinite;
+                animation: float 3s ease-in-out infinite, spin var(--rotation-speed) linear infinite;
             }
 
             .friend-card h4 {
@@ -81,18 +109,6 @@
                     background-position: 0% 50%;
                 }
             }
-            .container {
-                margin: 50px auto;
-                text-align: center;
-            }
-
-            .avatar {
-                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-                transition: transform 0.3s, box-shadow 0.3s;
-                border-radius: 15%;
-                animation: float 3s ease-in-out infinite, spin 10s linear infinite;
-            }
-
             @keyframes float {
                 0% {
                     transform: translatey(0px) rotate(0deg);
@@ -113,6 +129,18 @@
                     transform: rotate(360deg);
                 }
             }
+            .container {
+                margin: 50px auto;
+                text-align: center;
+            }
+
+            .avatar {
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+                transition: transform 0.3s, box-shadow 0.3s;
+                border-radius: 15%;
+                animation: float 3s ease-in-out infinite, spin var(--rotation-speed) linear infinite;
+            }
+
             .avatar:hover {
                 transform: scale(1.05);
                 box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
@@ -179,36 +207,6 @@
                 text-align: center;
             }
 
-            /* .skills {
-                margin: 40px auto;
-                width: 80%;
-                max-width: 600px;
-            }
-
-            .skill {
-                margin: 20px 0;
-                text-align: left;
-            }
-
-            .skill-name {
-                font-weight: bold;
-                margin-bottom: 5px;
-            }
-
-            .skill-bar {
-                height: 10px;
-                background: #ddd;
-                border-radius: 5px;
-                overflow: hidden;
-            }
-
-            .skill-progress {
-                height: 100%;
-                background: #4CAF50;
-                width: 0;
-                transition: width 1s ease-in-out;
-            } */
-
             .projects {
                 display: flex;
                 flex-wrap: wrap;
@@ -256,10 +254,48 @@
         .project-link:hover {
             background-color: #1e87db;
             transform: translateY(-2px);
-            }
+        }
+
+        .notification {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: top 0.5s ease-in-out;
+            z-index: 1001;
+        }
+
+        .notification.show {
+            top: 20px;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(-50%) rotate(0deg); }
+            25% { transform: translateX(-50%) rotate(5deg); }
+            50% { transform: translateX(-50%) rotate(0deg); }
+            75% { transform: translateX(-50%) rotate(-5deg); }
+            100% { transform: translateX(-50%) rotate(0deg); }
+        }
+
+        .notification.shake {
+            animation: shake 0.5s ease-in-out;
+        }
         </style>
     </head>
     <body>
+        <div class="speed-control">
+            <label for="speed-slider">Rotation Speed:</label>
+            <input type="range" id="speed-slider" min="1" max="20" value="2">
+            <span id="speed-value">10s</span>
+        </div>
+        <div id="notification" class="notification">
+            <p></p>
+        </div>
         <div class="container">
             <img width="200" height="200" class="avatar" src="https://avatars.githubusercontent.com/u/115927225"/>
             <div class="infobox">
@@ -323,19 +359,38 @@
         </div>
     </body>
     <script>
-        // Анимация полос навыков
-        function animateSkills() {
-            const skills = document.querySelectorAll('.skill-progress');
-            skills.forEach(skill => {
-                const width = skill.style.width;
-                skill.style.width = '0';
-                setTimeout(() => {
-                    skill.style.width = width;
-                }, 300);
-            });
+        const speedSlider = document.getElementById('speed-slider');
+        const speedValue = document.getElementById('speed-value');
+        const root = document.documentElement;
+        const notification = document.getElementById('notification');
+
+        function updateRotationSpeed() {
+            const speed = (21 - speedSlider.value) / 10; // Инвертируем значение
+            speedValue.textContent = `${speed}s`;
+            root.style.setProperty('--rotation-speed', `${speed}s`);
+
+            removeNotification();
+            if (speedSlider.value == speedSlider.max) {
+                notification.textContent = 'Slow down, speed racer! Your car isn’t a rocket ship!';
+                showNotification();
+            }
+            else if (speedSlider.value == speedSlider.min) {
+                notification.textContent = 'At this rate, you’ll get there by next century!';
+                showNotification();
+            }
+        }
+        function removeNotification() {
+            notification.classList.remove('show');
+            notification.classList.remove('shake');
         }
 
-        // Запускаем анимацию при загрузке страницы
-        window.addEventListener('load', animateSkills);
+        function showNotification() {
+            notification.classList.add('show');
+            notification.classList.add('shake');
+            setTimeout(removeNotification, 3000);
+        }
+        speedSlider.addEventListener('input', updateRotationSpeed);
+
+        // Инициализация при загрузке страницы
+        updateRotationSpeed();
     </script>
-</html>
