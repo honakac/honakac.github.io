@@ -369,7 +369,6 @@
             speedValue.textContent = `${speed}s`;
             root.style.setProperty('--rotation-speed', `${speed}s`);
 
-            removeNotification();
             if (speedSlider.value == speedSlider.max) {
                 notification.textContent = 'Slow down, speed racer! Your car isn’t a rocket ship!';
                 showNotification();
