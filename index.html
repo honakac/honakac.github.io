@@ -13,6 +13,13 @@
             <input type="range" id="speed-slider" min="1" max="20" value="2">
             <span id="speed-value">10s</span>
         </div>
+        <div class="music-player">
+            <button id="music-toggle">🎵 Play Music</button>
+            <audio id="background-music" loop>
+                <source id="musicSource" src="your-music.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
         <div id="notification" class="notification">
             <p></p>
         </div>
@@ -117,4 +124,26 @@
 
         // Инициализация при загрузке страницы
         updateRotationSpeed();
-    </script>
+
+        const musicList = ["mapmuzak.mp3", "zirobasplay.mp3", "oshibka.mp3"];
+        const currentIndex = Math.floor(Math.random() * musicList.length);
+        
+        const music = document.getElementById('background-music');
+        const musicToggle = document.getElementById('music-toggle');
+        let isPlaying = false;
+
+        music.src = `/music/${musicList[currentIndex]}`;
+        music.volume = 0.3;
+        music.load();
+
+        musicToggle.addEventListener('click', () => {
+            if (!isPlaying) {
+                music.play();
+                musicToggle.textContent = '⏸ Pause Music';
+            } else {
+                music.pause();
+                musicToggle.textContent = '🎵 Play Music';
+            }
+            isPlaying = !isPlaying;
+        });
+</script>
