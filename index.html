@@ -38,20 +38,19 @@
         <h3>My Projects</h3>
         <div class="projects">
             <div class="project">
-                <h4>BrainGear</h4>
-                <p>Lightweight and simple Brainfuck interpreter/compiler</p>
-                <a href="https://github.com/honakac/braingear" class="project-link" target="_blank">Source Code</a>
+                <div class="project-header">
+                    <img src="https://img.icons8.com/?size=100&id=0tuwKqWwti2E&format=png&color=000000" alt="C">
+                    <h4>BrainGear</h4>
+                </div>
+                <p>🚀 Lightweight Brainfuck interpreter/compiler</p>
+                <div class="tech-stack">
+                    <span>C</span>
+                    <span>GCC</span>
+                    <span>XMake</span>
+                </div>
+                <a href="https://github.com/honakac/braingear" class="project-link">View on GitHub →</a>
             </div>
-            <div class="project">
-                <h4>CLIper</h4>
-                <p>Lightweight CLI tool for managing notes in the terminal.</p>
-                <a href="https://github.com/honakac/CLIper" class="project-link" target="_blank">Source Code</a>
-            </div>
-            <div class="project">
-                <h4>Asciicaesar (outdated)</h4>
-                <p>Caesar cipher utility</p>
-                <a href="https://github.com/honakac/asciicaesar" class="project-link" target="_blank">Source Code</a>
-            </div>
+            <!-- Аналогично для других проектов -->
         </div>
 
         <div class="friends">
@@ -89,6 +88,18 @@
             <a href="https://github.com/honakac"><img src="github.png" alt="GitHub" class="bordered"></a>
             <a href="https://honakac.itch.io"><img src="itchio.webp" alt="Itch.io"></a>
         </div>
+
+        <footer>
+            <p>🚀 Made with <span style="color:#ff4757">♥</span> by HonakAC | 2025</p>
+            <div class="particles" id="particles"></div>
+        </footer>
+
+        <svg style="display: none;">
+            <!-- SVG фильтры для эффектов -->
+            <filter id="noise">
+                <feTurbulence type="fractalNoise" baseFrequency="0.65"/>
+            </filter>
+        </svg>
     </body>
     <script>
         const speedSlider = document.getElementById('speed-slider');
@@ -146,4 +157,25 @@
             }
             isPlaying = !isPlaying;
         });
+
+        // Добавить в конец скрипта
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for(let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: absolute;
+                    width: 2px;
+                    height: 2px;
+                    background: rgba(124, 58, 237, 0.5);
+                    border-radius: 50%;
+                    top: ${Math.random() * 100}%;
+                    left: ${Math.random() * 100}%;
+                    animation: float ${5 + Math.random() * 10}s infinite;
+                `;
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
 </script>
+</html>
