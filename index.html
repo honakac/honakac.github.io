@@ -1,59 +1,83 @@
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>HonakAC Page</title>
-        <link rel="stylesheet" href="./style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        <div class="speed-control">
-            <label for="speed-slider">Rotation Speed:</label>
-            <input type="range" id="speed-slider" min="1" max="20" value="2">
-            <span id="speed-value">10s</span>
-        </div>
-        <div class="music-player">
-            <button id="music-toggle">🎵 Play Music</button>
-            <audio id="background-music" loop>
-                <source id="musicSource" src="your-music.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-        </div>
-        <div id="notification" class="notification">
-            <p></p>
-        </div>
-        <div class="container">
-            <img width="200" height="200" class="avatar" src="https://avatars.githubusercontent.com/u/115927225"/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HonakAC Page</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="speed-control">
+        <label for="speed-slider">Rotation Speed:</label>
+        <input type="range" id="speed-slider" min="1" max="20" value="2">
+        <span id="speed-value">10s</span>
+    </div>
+    <div class="music-player">
+        <button id="music-toggle">Play Music</button>
+        <audio id="background-music" loop>
+            <source id="musicSource" src="your-music.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+    <div id="notification" class="notification"></div>
+
+    <main>
+        <section class="container hero">
+            <img width="200" height="200" class="avatar" src="https://avatars.githubusercontent.com/u/115927225" alt="HonakAC avatar"/>
             <div class="infobox">
+                <p class="eyebrow">Developer / Tinkerer</p>
                 <h1>HonakAC</h1>
-                <h4>I am a shit programmer in C/C++.</h4>
+                <h4>I build small tools, compilers and experiments in C/C++.</h4>
+                <p class="subtext">I like squeezing performance out of tiny projects, playing with low-level ideas and sharing the results.</p>
             </div>
-        </div>
+        </section>
 
-        <div class="github-card">
-            <img src="http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=honakac&theme=2077">
-        </div>
-
-        <h3>My Projects</h3>
-        <div class="projects">
-            <div class="project">
-                <div class="project-header">
-                    <img src="https://img.icons8.com/?size=100&id=0tuwKqWwti2E&format=png&color=000000" alt="C">
-                    <h4>BrainGear</h4>
+        <section>
+            <h3>My Projects</h3>
+            <div class="projects">
+                <div class="project">
+                    <div class="project-header">
+                        <img src="https://img.icons8.com/?size=100&id=0tuwKqWwti2E&format=png&color=000000" alt="C">
+                        <h4>BrainGear</h4>
+                    </div>
+                    <p>Lightweight Brainfuck interpreter/compiler.</p>
+                    <div class="tech-stack">
+                        <span>C</span>
+                        <span>GCC</span>
+                        <span>XMake</span>
+                    </div>
+                    <a href="https://github.com/honakac/braingear" class="project-link" target="_blank">View on GitHub</a>
                 </div>
-                <p>🚀 Lightweight Brainfuck interpreter/compiler</p>
-                <div class="tech-stack">
-                    <span>C</span>
-                    <span>GCC</span>
-                    <span>XMake</span>
-                </div>
-                <a href="https://github.com/honakac/braingear" class="project-link">View on GitHub →</a>
             </div>
-            <!-- Аналогично для других проектов -->
-        </div>
+        </section>
 
-        <div class="friends">
+        <section class="donations">
+            <h3>Support the Work</h3>
+            <p class="donation-note">If you enjoy what I make, you can send a small thank you to any of the addresses below.</p>
+            <div class="donation-grid">
+                <div class="donation-card">
+                    <h4>Bitcoin</h4>
+                    <p class="address" data-address="bc1qe729nc3mycuz6gcz7duc8c64j4f0zap0l8fjca">bc1qe729nc3mycuz6gcz7duc8c64j4f0zap0l8fjca</p>
+                    <button class="copy-btn" data-address="bc1qe729nc3mycuz6gcz7duc8c64j4f0zap0l8fjca">Copy address</button>
+                </div>
+                <div class="donation-card">
+                    <h4>Ethereum</h4>
+                    <p class="address" data-address="0x087ac26BE5a68539A89FF76200F11cE97659AaCc">0x087ac26BE5a68539A89FF76200F11cE97659AaCc</p>
+                    <button class="copy-btn" data-address="0x087ac26BE5a68539A89FF76200F11cE97659AaCc">Copy address</button>
+                </div>
+                <div class="donation-card">
+                    <h4>USDT (TRC20)</h4>
+                    <p class="address" data-address="TKHHFLKWwpbSaMbLePki5NARpvbYMo4JXH">TKHHFLKWwpbSaMbLePki5NARpvbYMo4JXH</p>
+                    <button class="copy-btn" data-address="TKHHFLKWwpbSaMbLePki5NARpvbYMo4JXH">Copy address</button>
+                </div>
+            </div>
+            <p class="donation-note subtle">Swap these with your real wallets when you are ready.</p>
+        </section>
+
+        <section class="friends">
             <h3>My Friends</h3>
             <div class="friends-container">
                 <div class="friend-card">
@@ -72,42 +96,44 @@
                     <a href="https://shadowcj.rf.gd/" target="_blank">Visit Site</a>
                 </div>
             </div>
-        </div>
+        </section>
+
         <div class="social-links">
             <h3>Connect with me:</h3>
             <a href="https://github.com/honakac"><img src="github.png" alt="GitHub" class="bordered"></a>
             <a href="https://honakac.itch.io"><img src="itchio.webp" alt="Itch.io"></a>
         </div>
+    </main>
 
-        <footer>
-            <p>🚀 Made with <span style="color:#ff4757">♥</span> by HonakAC | 2025</p>
-            <div class="particles" id="particles"></div>
-        </footer>
+    <footer>
+        <p>Made with &lt;3 by HonakAC | 2025</p>
+        <div class="particles" id="particles"></div>
+    </footer>
 
-        <svg style="display: none;">
-            <!-- SVG фильтры для эффектов -->
-            <filter id="noise">
-                <feTurbulence type="fractalNoise" baseFrequency="0.65"/>
-            </filter>
-        </svg>
-    </body>
+    <svg style="display: none;">
+        <filter id="noise">
+            <feTurbulence type="fractalNoise" baseFrequency="0.65"/>
+        </filter>
+    </svg>
+
     <script>
         const speedSlider = document.getElementById('speed-slider');
         const speedValue = document.getElementById('speed-value');
         const root = document.documentElement;
         const notification = document.getElementById('notification');
+        const copyButtons = document.querySelectorAll('.copy-btn');
 
         function updateRotationSpeed() {
-            const speed = (21 - speedSlider.value) / 10; // Инвертируем значение
+            const speed = (21 - speedSlider.value) / 10;
             speedValue.textContent = `${speed}s`;
             root.style.setProperty('--rotation-speed', `${speed}s`);
 
             if (speedSlider.value == speedSlider.max) {
-                notification.textContent = 'Slow down, speed racer! Your car isn’t a rocket ship!';
+                notification.textContent = 'Slow down, speed racer! Your car is not a rocket ship.';
                 showNotification();
             }
             else if (speedSlider.value == speedSlider.min) {
-                notification.textContent = 'At this rate, you’ll get there by next century!';
+                notification.textContent = 'At this rate, you will get there by next century.';
                 showNotification();
             }
         }
@@ -123,7 +149,6 @@
         }
         speedSlider.addEventListener('input', updateRotationSpeed);
 
-        // Инициализация при загрузке страницы
         updateRotationSpeed();
 
         const musicList = ["mapmuzak.mp3", "zirobasplay.mp3", "oshibka.mp3", "vpiska.mp3", "drochu.mp3"];
@@ -140,15 +165,14 @@
         musicToggle.addEventListener('click', () => {
             if (!isPlaying) {
                 music.play();
-                musicToggle.textContent = '⏸ Pause Music';
+                musicToggle.textContent = 'Pause Music';
             } else {
                 music.pause();
-                musicToggle.textContent = '🎵 Play Music';
+                musicToggle.textContent = 'Play Music';
             }
             isPlaying = !isPlaying;
         });
 
-        // Добавить в конец скрипта
         function createParticles() {
             const container = document.getElementById('particles');
             for(let i = 0; i < 50; i++) {
@@ -167,5 +191,19 @@
             }
         }
         createParticles();
-</script>
+
+        copyButtons.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const address = btn.getAttribute('data-address') || '';
+                navigator.clipboard.writeText(address).then(() => {
+                    notification.textContent = 'Address copied. Thanks for the support!';
+                    showNotification();
+                }).catch(() => {
+                    notification.textContent = 'Could not copy. Please copy it manually.';
+                    showNotification();
+                });
+            });
+        });
+    </script>
+</body>
 </html>
