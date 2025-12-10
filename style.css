@@ -1,7 +1,7 @@
 :root {
     --rotation-speed: 10s;
-    --accent: #7c3aed;
-    --accent-hover: #6d28d9;
+    --accent: #22c55e;
+    --accent-hover: #16a34a;
     --surface: rgba(255, 255, 255, 0.08);
     --border: rgba(255, 255, 255, 0.15);
     --neon-shadow: 0 0 15px var(--accent);
@@ -14,7 +14,7 @@
 body {
     margin: 0;
     font-family: 'Nunito', sans-serif;
-    background: linear-gradient(-45deg, #141e30, #243b55, #1a2a6c, #2a3a7c);
+    background: radial-gradient(circle at 20% 20%, rgba(34, 197, 94, 0.12), transparent 35%), radial-gradient(circle at 80% 10%, rgba(74, 222, 128, 0.08), transparent 30%), linear-gradient(135deg, #050709, #0b1d14, #06110e, #030405);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
     color: #f8f9ff;
@@ -71,31 +71,100 @@ main {
 
 .speed-control {
     position: fixed;
+    top: 54px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 12px 16px;
+    border-radius: 12px;
+    z-index: 1000;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    min-width: 280px;
+    width: min(440px, 92vw);
+}
+
+.speed-control.hidden {
+    display: none;
+}
+
+.speed-control.visible {
+    display: block;
+}
+
+.speed-toggle {
+    position: fixed;
     top: 10px;
     right: 10px;
-    background: rgba(255, 255, 255, 0.08);
+    z-index: 1001;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #e5e7eb;
     padding: 10px 14px;
-    border-radius: 8px;
-    z-index: 1000;
-    border: 1px solid var(--border);
-    backdrop-filter: blur(8px);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.speed-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border-color: rgba(34, 197, 94, 0.6);
+}
+
+.player-toggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1001;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #e5e7eb;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.player-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border-color: rgba(34, 197, 94, 0.6);
+}
+
+.speed-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 6px;
 }
 
 .speed-control label {
-    display: block;
-    margin-bottom: 6px;
     color: #fff;
     font-weight: 700;
-}
-
-.speed-control input[type="range"] {
-    width: 100%;
+    font-size: 0.95rem;
 }
 
 .speed-control #speed-value {
-    display: inline-block;
-    margin-top: 6px;
-    color: #e5e7eb;
+    color: #bbf7d0;
+    font-weight: 700;
+}
+
+.speed-scale {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.speed-label {
+    font-size: 0.8rem;
+    color: #cbd5e1;
+    white-space: nowrap;
+}
+
+.speed-control input[type="range"] {
+    flex: 1;
 }
 
 .avatar {
@@ -115,7 +184,7 @@ h1 {
     font-size: 2.6rem;
     font-weight: 800;
     margin: 10px 0;
-    background: linear-gradient(45deg, #7c3aed, #3b82f6);
+    background: linear-gradient(45deg, #22c55e, #14b8a6);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -198,7 +267,7 @@ h3 {
 }
 
 .project-link, .copy-btn, #music-toggle {
-    background: linear-gradient(45deg, var(--accent), #3b82f6);
+    background: linear-gradient(45deg, var(--accent), #0d9488);
     border: none;
     padding: 12px 24px;
     border-radius: 50px;
@@ -225,17 +294,127 @@ h3 {
 
 .project-link:hover, .copy-btn:hover, #music-toggle:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4);
+    box-shadow: 0 5px 15px rgba(34, 197, 94, 0.4);
 }
 
 .music-player {
-    margin: 30px auto 0;
+    position: fixed;
+    top: 54px;
+    left: 10px;
+    margin: 0;
     text-align: center;
+    display: grid;
+    gap: 10px;
+    justify-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 12px 16px;
+    width: min(520px, 92vw);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+.music-player.hidden {
+    display: none;
+}
+
+.music-player.visible {
+    display: grid;
 }
 
 #music-toggle {
     border: 2px solid var(--accent);
     font-size: 1.05rem;
+    min-width: 130px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-row {
+    display: grid;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+}
+
+.track-info {
+    display: grid;
+    gap: 2px;
+    text-align: center;
+    min-width: 0;
+    justify-items: center;
+}
+
+.player-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.ghost-btn {
+    background: rgba(34, 197, 94, 0.12);
+    border: 1px solid rgba(34, 197, 94, 0.35);
+    color: #e5e7eb;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-weight: 700;
+    min-width: 110px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.ghost-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border-color: rgba(34, 197, 94, 0.6);
+}
+
+.track-label {
+    font-size: 0.78rem;
+    color: #a7f3d0;
+    letter-spacing: 0.3px;
+}
+
+#track-name {
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+    min-width: 0;
+}
+
+.player-controls label {
+    font-weight: 700;
+    color: #fff;
+}
+
+#volume-slider {
+    flex: 1;
+    min-width: 0;
+}
+
+#volume-value {
+    min-width: 42px;
+    text-align: right;
+    color: #bbf7d0;
+    font-weight: 700;
 }
 
 .social-links {
@@ -318,38 +497,116 @@ h3 {
 .donations {
     width: 90%;
     max-width: 1100px;
-    margin: 30px auto 50px;
+    margin: 30px auto 70px;
+    padding: 20px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(20, 184, 166, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.25);
 }
 
 .donation-note {
     color: #d9e0ff;
-    margin: 8px auto 18px;
+    margin: 8px auto 10px;
     max-width: 720px;
 }
 
 .donation-note.subtle {
-    opacity: 0.8;
+    opacity: 0.82;
     font-size: 0.9rem;
 }
 
 .donation-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 300px));
+    gap: 20px;
+    justify-content: center;
+    align-items: stretch;
+    grid-auto-rows: 1fr;
+}
+
+@media (min-width: 1100px) {
+    .donation-grid {
+        grid-template-columns: repeat(3, minmax(260px, 1fr));
+    }
+    .donation-card:last-child {
+        grid-column: 2;
+    }
 }
 
 .donation-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 18px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    background: radial-gradient(120% 120% at 30% 20%, rgba(34, 197, 94, 0.22), rgba(20, 184, 166, 0.08) 60%, rgba(0,0,0,0.18) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    padding: 18px 18px 16px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.28);
     position: relative;
     overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    min-height: 185px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.donation-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(34,197,94,0.12));
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+}
+
+.donation-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.32);
+    border-color: rgba(34, 197, 94, 0.6);
+}
+
+.donation-card:hover::before {
+    opacity: 1;
 }
 
 .donation-card h4 {
     margin: 0 0 10px;
+}
+
+.donation-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.chain-tag {
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    color: #f8f9ff;
+}
+
+.token-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+    max-width: 210px;
+}
+
+.token-pill {
+    padding: 4px 7px;
+    border-radius: 10px;
+    background: rgba(5, 150, 105, 0.2);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    font-size: 0.8rem;
+    color: #e5e7eb;
 }
 
 .address {
@@ -359,8 +616,16 @@ h3 {
     padding: 10px;
     font-family: "Courier New", monospace;
     word-break: break-all;
-    margin: 0 0 12px;
+    margin: 0;
     color: #e5e7eb;
+}
+
+.address-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    align-items: center;
+    margin-top: auto;
 }
 
 .notification {
@@ -417,7 +682,7 @@ footer p {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('data:image/svg+xml,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="%237C3AED" d="M45,-74C58.4,-69.3,69.3,-58.4,74.6,-45C79.9,-31.6,79.6,-15.8,79.3,0.1C79,16.1,78.7,32.2,71.3,43.2C63.9,54.2,49.3,60.1,35.7,65.6C22.1,71.1,9.5,76.3,-3.5,81.2C-16.5,86.1,-33,90.8,-44.5,84.7C-56,78.7,-62.5,62,-69.2,46.7C-75.9,31.4,-82.7,17.7,-83.9,3.1C-85.1,-11.6,-80.7,-27.2,-73.1,-40.4C-65.6,-53.6,-54.9,-64.4,-42.3,-69.8C-29.7,-75.2,-15.3,-75.3,0.3,-75.8C15.9,-76.3,31.7,-77.2,45,-74Z"/></svg>');
+    background: url('data:image/svg+xml,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="%2316A34A" d="M45,-74C58.4,-69.3,69.3,-58.4,74.6,-45C79.9,-31.6,79.6,-15.8,79.3,0.1C79,16.1,78.7,32.2,71.3,43.2C63.9,54.2,49.3,60.1,35.7,65.6C22.1,71.1,9.5,76.3,-3.5,81.2C-16.5,86.1,-33,90.8,-44.5,84.7C-56,78.7,-62.5,62,-69.2,46.7C-75.9,31.4,-82.7,17.7,-83.9,3.1C-85.1,-11.6,-80.7,-27.2,-73.1,-40.4C-65.6,-53.6,-54.9,-64.4,-42.3,-69.8C-29.7,-75.2,-15.3,-75.3,0.3,-75.8C15.9,-76.3,31.7,-77.2,45,-74Z"/></svg>');
     opacity: 0.05;
     z-index: -1;
     animation: parallax 20s linear infinite;
@@ -510,5 +775,88 @@ footer p {
     .avatar {
         width: 160px;
         height: 160px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .speed-control {
+        position: fixed;
+        inset: auto 10px 235px 10px;
+        transform: none;
+        width: calc(100% - 20px);
+        min-width: 0;
+    }
+
+    .speed-scale {
+        gap: 6px;
+    }
+
+    .speed-toggle {
+        position: fixed;
+        right: 10px;
+        top: 10px;
+        bottom: auto;
+    }
+
+    .music-player {
+        position: fixed;
+        inset: auto 10px 10px 10px;
+        width: calc(100% - 20px);
+        padding: 12px;
+        gap: 8px;
+    }
+
+    #music-toggle {
+        width: 100%;
+    }
+
+    .player-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        justify-items: stretch;
+    }
+
+    .player-actions {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .ghost-btn {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .track-info {
+        text-align: center;
+    }
+
+    #track-name {
+        white-space: normal;
+        line-height: 1.2;
+        text-align: center;
+    }
+
+    .player-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #volume-slider {
+        width: 100%;
+    }
+
+    .player-toggle {
+        position: fixed;
+        left: 10px;
+        top: 10px;
+        bottom: auto;
+    }
+
+    .speed-control.dock-bottom {
+        top: auto;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        width: calc(100% - 20px);
     }
 }

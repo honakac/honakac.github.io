@@ -10,13 +10,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="speed-control">
-        <label for="speed-slider">Rotation Speed:</label>
-        <input type="range" id="speed-slider" min="1" max="20" value="2">
-        <span id="speed-value">10s</span>
+    <button id="speed-toggle" class="speed-toggle">Show Speed</button>
+    <button id="player-toggle" class="player-toggle">Show Player</button>
+    <div class="speed-control hidden">
+        <div class="speed-top">
+            <label for="speed-slider">Rotation Speed</label>
+            <span id="speed-value">10s</span>
+        </div>
+        <div class="speed-scale">
+            <span class="speed-label">Slow</span>
+            <input type="range" id="speed-slider" min="1" max="20" step="1" value="10">
+            <span class="speed-label">Fast</span>
+        </div>
     </div>
-    <div class="music-player">
-        <button id="music-toggle">Play Music</button>
+    <div class="music-player hidden">
+        <div class="player-row">
+            <div class="player-actions">
+                <button class="ghost-btn" id="prev-track" aria-label="Previous track">&leftarrow;</button>
+                <button id="music-toggle">Play</button>
+                <button class="ghost-btn" id="next-track" aria-label="Next track">&rightarrow;</button>
+            </div>
+            <div class="track-info">
+                <span class="track-label">Now playing</span>
+                <span id="track-name">...</span>
+            </div>
+        </div>
+        <div class="player-controls">
+            <label for="volume-slider">Volume</label>
+            <input type="range" id="volume-slider" min="0" max="100" value="30">
+            <span id="volume-value">30%</span>
+        </div>
         <audio id="background-music" loop>
             <source id="musicSource" src="your-music.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
@@ -57,24 +80,65 @@
         <section class="donations">
             <h3>Support the Work</h3>
             <p class="donation-note">If you enjoy what I make, you can send a small thank you to any of the addresses below.</p>
+            <p class="donation-note subtle">One address per chain; stablecoins ride along (USDT + USDC).</p>
             <div class="donation-grid">
                 <div class="donation-card">
-                    <h4>BTC</h4>
-                    <p class="address" data-address="bc1qs69hzecjfjkjzrj757wh5we4t9q8xm7ghkl3hf">bc1qs69hzecjfjkjzrj757wh5we4t9q8xm7ghkl3hf</p>
-                    <button class="copy-btn" data-address="bc1qs69hzecjfjkjzrj757wh5we4t9q8xm7ghkl3hf">Copy address</button>
+                    <div class="donation-top">
+                        <span class="chain-tag">BTC</span>
+                        <div class="token-row">
+                            <span class="token-pill">BTC</span>
+                        </div>
+                    </div>
+                    <div class="address-row">
+                        <p class="address" data-address="bc1qs69hzecjfjkjzrj757wh5we4t9q8xm7ghkl3hf">bc1qs69hzecjfjkjzrj757wh5we4t9q8xm7ghkl3hf</p>
+                        <button class="copy-btn" data-address="bc1qs69hzecjfjkjzrj757wh5we4t9q8xm7ghkl3hf">Copy</button>
+                    </div>
                 </div>
                 <div class="donation-card">
-                    <h4>ETH/USDT/BNB</h4>
-                    <p class="address" data-address="0xf23fd875f3245b0362af803a3bafdf9f17b489b9">0xf23fd875f3245b0362af803a3bafdf9f17b489b9</p>
-                    <button class="copy-btn" data-address="0xf23fd875f3245b0362af803a3bafdf9f17b489b9">Copy address</button>
+                    <div class="donation-top">
+                        <span class="chain-tag">EVM</span>
+                        <div class="token-row">
+                            <span class="token-pill">ETH</span>
+                            <span class="token-pill">BNB</span>
+                            <span class="token-pill">POL</span>
+                            <span class="token-pill">USDT</span>
+                            <span class="token-pill">USDC</span>
+                        </div>
+                    </div>
+                    <div class="address-row">
+                        <p class="address" data-address="0xf23fd875f3245b0362af803a3bafdf9f17b489b9">0xf23fd875f3245b0362af803a3bafdf9f17b489b9</p>
+                        <button class="copy-btn" data-address="0xf23fd875f3245b0362af803a3bafdf9f17b489b9">Copy</button>
+                    </div>
                 </div>
                 <div class="donation-card">
-                    <h4>SOL/USDT</h4>
-                    <p class="address" data-address="9pxJtUBZNhCTwdKktU7qe4uKuZ7f2nRJSAyLBKZe3PMv">9pxJtUBZNhCTwdKktU7qe4uKuZ7f2nRJSAyLBKZe3PMv</p>
-                    <button class="copy-btn" data-address="9pxJtUBZNhCTwdKktU7qe4uKuZ7f2nRJSAyLBKZe3PMv">Copy address</button>
+                    <div class="donation-top">
+                        <span class="chain-tag">SOL</span>
+                        <div class="token-row">
+                            <span class="token-pill">SOL</span>
+                            <span class="token-pill">USDT</span>
+                            <span class="token-pill">USDC</span>
+                        </div>
+                    </div>
+                    <div class="address-row">
+                        <p class="address" data-address="9pxJtUBZNhCTwdKktU7qe4uKuZ7f2nRJSAyLBKZe3PMv">9pxJtUBZNhCTwdKktU7qe4uKuZ7f2nRJSAyLBKZe3PMv</p>
+                        <button class="copy-btn" data-address="9pxJtUBZNhCTwdKktU7qe4uKuZ7f2nRJSAyLBKZe3PMv">Copy</button>
+                    </div>
+                </div>
+                <div class="donation-card">
+                    <div class="donation-top">
+                        <span class="chain-tag">TRX</span>
+                        <div class="token-row">
+                            <span class="token-pill">TRX</span>
+                            <span class="token-pill">USDT</span>
+                            <span class="token-pill">USDC</span>
+                        </div>
+                    </div>
+                    <div class="address-row">
+                        <p class="address" data-address="TPdg55qxzCVB6GeaeZovzXJaZbKtweKPxg">TPdg55qxzCVB6GeaeZovzXJaZbKtweKPxg</p>
+                        <button class="copy-btn" data-address="TPdg55qxzCVB6GeaeZovzXJaZbKtweKPxg">Copy</button>
+                    </div>
                 </div>
             </div>
-            <p class="donation-note subtle">Swap these with your real wallets when you are ready.</p>
         </section>
 
         <section class="friends">
@@ -82,7 +146,7 @@
             <div class="friends-container">
                 <div class="friend-card">
                     <img src="https://avatars.githubusercontent.com/u/82901151?v=4" alt="Octobanon">
-                    <h4>Octobanon</h4>
+                    <h4>OctoBanon</h4>
                     <a href="https://octobanon.com/" target="_blank">Visit Site</a>
                 </div>
                 <div class="friend-card">
@@ -124,24 +188,40 @@
     <script>
         const speedSlider = document.getElementById('speed-slider');
         const speedValue = document.getElementById('speed-value');
+        const speedToggle = document.getElementById('speed-toggle');
+        const speedPanel = document.querySelector('.speed-control');
+        const playerToggle = document.getElementById('player-toggle');
+        const playerPanel = document.querySelector('.music-player');
         const root = document.documentElement;
         const notification = document.getElementById('notification');
         const copyButtons = document.querySelectorAll('.copy-btn');
+        const volumeSlider = document.getElementById('volume-slider');
+        const volumeValue = document.getElementById('volume-value');
+        const trackNameEl = document.getElementById('track-name');
+        const prevTrackBtn = document.getElementById('prev-track');
+        const nextTrackBtn = document.getElementById('next-track');
 
         function updateRotationSpeed() {
-            const speed = (21 - speedSlider.value) / 10;
-            speedValue.textContent = `${speed}s`;
-            root.style.setProperty('--rotation-speed', `${speed}s`);
+            const value = Number(speedSlider.value);
+            const min = Number(speedSlider.min);
+            const max = Number(speedSlider.max);
+            const t = (value - min) / (max - min);
+            const seconds = 18 - (17.9 * t); // 18s (slow) to 4s (fast)
+            const secondsRounded = Math.max(0.1, Number(seconds.toFixed(1)));
+            speedValue.textContent = `${secondsRounded}s`;
+            root.style.setProperty('--rotation-speed', `${secondsRounded}s`);
 
-            if (speedSlider.value == speedSlider.max) {
-                notification.textContent = 'Slow down, speed racer! Your car is not a rocket ship.';
+            const nearSlow = t < 0.05;
+            const nearFast = t > 0.95;
+            if (nearSlow) {
+                notification.textContent = 'Max chill: the avatar is basically in slow-mo.';
                 showNotification();
-            }
-            else if (speedSlider.value == speedSlider.min) {
-                notification.textContent = 'At this rate, you will get there by next century.';
+            } else if (nearFast) {
+                notification.textContent = 'Turbo spin engaged. Careful, might cause vertigo!';
                 showNotification();
             }
         }
+
         function removeNotification() {
             notification.classList.remove('show');
             notification.classList.remove('shake');
@@ -152,31 +232,93 @@
             notification.classList.add('shake');
             setTimeout(removeNotification, 3000);
         }
-        speedSlider.addEventListener('input', updateRotationSpeed);
 
-        updateRotationSpeed();
+        speedSlider.addEventListener('input', updateRotationSpeed);
+        speedSlider.addEventListener('change', updateRotationSpeed);
+        speedToggle.addEventListener('click', () => {
+            const isHidden = speedPanel.classList.contains('hidden');
+            speedPanel.classList.toggle('hidden', !isHidden);
+            speedPanel.classList.toggle('visible', isHidden);
+            speedToggle.textContent = isHidden ? 'Hide Speed' : 'Show Speed';
+            updateSpeedPlacement();
+        });
+        playerToggle.addEventListener('click', () => {
+            const isHidden = playerPanel.classList.contains('hidden');
+            playerPanel.classList.toggle('hidden', !isHidden);
+            playerPanel.classList.toggle('visible', isHidden);
+            playerToggle.textContent = isHidden ? 'Hide Player' : 'Show Player';
+            updateSpeedPlacement();
+        });
 
         const musicList = ["mapmuzak.mp3", "zirobasplay.mp3", "oshibka.mp3", "vpiska.mp3", "drochu.mp3"];
-        const currentIndex = Math.floor(Math.random() * musicList.length);
+        let currentIndex = Math.floor(Math.random() * musicList.length);
         
         const music = document.getElementById('background-music');
         const musicToggle = document.getElementById('music-toggle');
         let isPlaying = false;
 
-        music.src = `/music/${musicList[currentIndex]}`;
-        music.volume = 0.3;
-        music.load();
+        function formatTrackName(filename) {
+            return filename.replace('.mp3', '').replace(/[_-]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        }
+
+        function setTrack(idx) {
+            currentIndex = idx % musicList.length;
+            const track = musicList[currentIndex];
+            music.src = `/music/${track}`;
+            music.load();
+            trackNameEl.textContent = formatTrackName(track);
+        }
+
+        function playCurrent() {
+            music.play();
+            isPlaying = true;
+            musicToggle.textContent = 'Pause';
+        }
+
+        function pauseCurrent() {
+            music.pause();
+            isPlaying = false;
+            musicToggle.textContent = 'Play';
+        }
+
+        function playNextTrack(step = 1) {
+            setTrack((currentIndex + step + musicList.length) % musicList.length);
+            playCurrent();
+        }
+
+        function updateVolume() {
+            const vol = Number(volumeSlider.value) / 100;
+            music.volume = vol;
+            volumeValue.textContent = `${volumeSlider.value}%`;
+        }
+
+        setTrack(currentIndex);
+        volumeSlider.addEventListener('input', updateVolume);
+        updateVolume();
+        updateRotationSpeed();
 
         musicToggle.addEventListener('click', () => {
             if (!isPlaying) {
-                music.play();
-                musicToggle.textContent = 'Pause Music';
+                playCurrent();
             } else {
-                music.pause();
-                musicToggle.textContent = 'Play Music';
+                pauseCurrent();
             }
-            isPlaying = !isPlaying;
         });
+
+        prevTrackBtn.addEventListener('click', () => playNextTrack(-1));
+        nextTrackBtn.addEventListener('click', () => playNextTrack(1));
+        music.addEventListener('ended', () => playNextTrack(1));
+
+        function updateSpeedPlacement() {
+            const playerHidden = playerPanel.classList.contains('hidden');
+            if (playerHidden) {
+                speedPanel.classList.add('dock-bottom');
+            } else {
+                speedPanel.classList.remove('dock-bottom');
+            }
+        }
+
+        updateSpeedPlacement();
 
         function createParticles() {
             const container = document.getElementById('particles');
@@ -186,7 +328,7 @@
                     position: absolute;
                     width: 2px;
                     height: 2px;
-                    background: rgba(124, 58, 237, 0.5);
+                    background: rgba(34, 197, 94, 0.5);
                     border-radius: 50%;
                     top: ${Math.random() * 100}%;
                     left: ${Math.random() * 100}%;
